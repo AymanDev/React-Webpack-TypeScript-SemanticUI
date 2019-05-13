@@ -1,13 +1,12 @@
 import * as React from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import './index.css';
-import { Button, Segment, Modal, Form, Menu, Icon, Message } from 'semantic-ui-react';
-import { type } from 'os';
+import { Button, Segment, Modal, Form, Menu, Icon, Message, Container, Header, Divider, Responsive, Sidebar } from 'semantic-ui-react';
 
 interface IndexState {
     [name: string]: any,
     regModalOpened: boolean,
     authModalOpened: boolean,
+    mobileMenuOpened: boolean,
     login: string,
     password: string,
     repeatPassword: string,
@@ -24,6 +23,7 @@ class Index extends React.Component<any, IndexState> {
     state = {
         regModalOpened: false,
         authModalOpened: false,
+        mobileMenuOpened: false,
         login: "",
         password: "",
         repeatPassword: "",
@@ -113,7 +113,7 @@ class Index extends React.Component<any, IndexState> {
         });
 
         const errorMessages = {};
-        const { login, password} = this.state;
+        const { login, password } = this.state;
 
         if (login.length < 3 || login.length > 16) {
             errorMessages['login'] = 'Login must be longer than 3 and lower than 16 symbols!';
@@ -135,18 +135,52 @@ class Index extends React.Component<any, IndexState> {
     render() {
         return (
             <div>
-                <Segment inverted vertical textAlign="center">
-                    <Menu inverted pointing secondary>
+                <Sidebar.Pushable as="div">
+                    <Sidebar
+                        as={Menu}
+                        animation='push'
+                        icon='labeled'
+                        inverted
+                        onHide={() => this.setState({ mobileMenuOpened: false })}
+                        vertical
+                        visible={this.state.mobileMenuOpened}
+                        width='thin'
+                    >
                         <Menu.Item name='Home' active={true} />
                         <Menu.Item name='Pages' />
-                        <Menu.Menu position='right'>
-                            <Menu.Item name='register' onClick={() => this.showModal('register')} />
-                            <Menu.Item name='login' onClick={() => this.showModal('login')} />
-                        </Menu.Menu>
-                    </Menu>
-                    <h2>React + Webpack + TypeScript + Semantic UI</h2>
-                    <p>Example project</p>
-                </Segment>
+                    </Sidebar>
+                    <Sidebar.Pusher>
+                        <Segment inverted vertical textAlign="center">
+                            <Menu inverted pointing secondary>
+                                <Responsive as={Menu.Menu} minWidth={Responsive.onlyTablet.minWidth}>
+                                    <Menu.Item name='Home' active={true} />
+                                    <Menu.Item name='Pages' />
+                                </Responsive>
+                                <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
+                                    <Button icon inverted labelPosition="left"
+                                        onClick={() => this.setState({ mobileMenuOpened: !this.state.mobileMenuOpened })}>
+                                        <Icon name="sidebar" />Menu
+                                    </Button>
+                                </Responsive>
+
+                                <Menu.Menu position='right'>
+                                    <Menu.Item name='register' onClick={() => this.showModal('register')} />
+                                    <Menu.Item name='login' onClick={() => this.showModal('login')} />
+                                </Menu.Menu>
+                            </Menu>
+
+                            <h2>React + Webpack + TypeScript + Semantic UI</h2>
+                            <p>Example project</p>
+                        </Segment>
+                        <Segment vertical>
+                            <Container text>
+                                <Header as="h3">Welcome to test page</Header>
+                                <p>This page was written with React, Webpack, TypeScript and Semantic UI!</p>
+                            </Container>
+                        </Segment>
+                    </Sidebar.Pusher>
+                </Sidebar.Pushable>
+
 
                 <Modal basic dimmer="blurring" open={this.state.regModalOpened} closeIcon
                     onClose={() => this.hideModal('register')}
@@ -239,7 +273,7 @@ class Index extends React.Component<any, IndexState> {
                                     required
                                 />
                             </Form.Field>
-                            
+
                             <Button.Group fluid>
                                 <Button type="submit" color="red"
                                     onClick={() => this.hideModal('login')}
@@ -260,7 +294,7 @@ class Index extends React.Component<any, IndexState> {
                         </Form>
                     </Modal.Content>
                 </Modal>
-            </div>
+            </div >
         );
     }
 }

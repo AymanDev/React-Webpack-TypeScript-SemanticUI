@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import { Button, Segment, Modal, Form, Menu, Icon, Message, Container, Header, Divider, Responsive, Sidebar } from 'semantic-ui-react';
+import { Button, Segment, Modal, Form, Menu, Icon, Message, Container, Header, List, Responsive, Sidebar, Grid } from 'semantic-ui-react';
 
 interface IndexState {
     [name: string]: any,
@@ -170,12 +170,38 @@ class Index extends React.Component<any, IndexState> {
                             </Menu>
 
                             <h2>React + Webpack + TypeScript + Semantic UI</h2>
-                            <p>Example project</p>
+                            <p>Example project created by AymanDev</p>
                         </Segment>
                         <Segment vertical>
                             <Container text>
                                 <Header as="h3">Welcome to test page</Header>
                                 <p>This page was written with React, Webpack, TypeScript and Semantic UI!</p>
+                            </Container>
+                        </Segment>
+                        <Segment vertical inverted>
+                            <Container>
+                                <Grid stackable inverted divided columns={3} textAlign="center">
+                                    <Grid.Column width={4}>
+                                        <Header as="h4" inverted>About</Header>
+                                        <List link inverted>
+                                            <List.Item>Sitemap</List.Item>
+                                            <List.Item>About Us</List.Item>
+                                            <List.Item>Contact Us</List.Item>
+                                        </List>
+                                    </Grid.Column>
+                                    <Grid.Column width={4}>
+                                        <Header as="h4" inverted>Services</Header>
+                                        <List link inverted>
+                                            <List.Item>Pre-orders</List.Item>
+                                            <List.Item>DNA</List.Item>
+                                            <List.Item>FAQ</List.Item>
+                                        </List>
+                                    </Grid.Column>
+                                    <Grid.Column width={5}>
+                                        <Header as="h4" inverted>Example project</Header>
+                                        <p>Just simple project. Its almost 6:00AM in Novosibirsk! While in Tula/Moscow 2:00AM!</p>
+                                    </Grid.Column>
+                                </Grid>
                             </Container>
                         </Segment>
                     </Sidebar.Pusher>

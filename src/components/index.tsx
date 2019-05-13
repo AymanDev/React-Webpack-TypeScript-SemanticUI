@@ -11,7 +11,7 @@ class Index extends React.Component<PageInterface, {}> {
     render() {
         return (
             <Segment inverted vertical masthead>
-                <Grid>
+                <Grid stackable>
                     <Grid.Column textAlign='center'>
                         <h1>Welcome to React with Typescript</h1>
                         <p>The color of this page is: {this.props.color}</p>
